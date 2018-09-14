@@ -12,16 +12,41 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:pulumi.k8s.pulumise"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.sayHello",
-                "title": "Hello World"
+                "command": "pulumi.k8s.pulumise",
+                "title": "Pulumise",
+                "category": "Pulumi"
             }
-        ]
+        ],
+        "menus": {
+            "view/item/context": [
+                {
+                    "command": "pulumi.k8s.pulumise",
+                    "group": "0",
+                    "when": "view == extension.vsKubernetesExplorer && viewItem == vsKubernetes.resource"
+                },
+                {
+                    "command": "pulumi.k8s.pulumise",
+                    "group": "0",
+                    "when": "view == extension.vsKubernetesExplorer && viewItem == vsKubernetes.resource.pod"
+                },
+                {
+                    "command": "pulumi.k8s.pulumise",
+                    "group": "0",
+                    "when": "view == extension.vsKubernetesExplorer && viewItem == vsKubernetes.resource.configmap"
+                },
+                {
+                    "command": "pulumi.k8s.pulumise",
+                    "group": "0",
+                    "when": "view == extension.vsKubernetesExplorer && viewItem == vsKubernetes.resource.secret"
+                }
+            ]
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
@@ -30,6 +55,10 @@
         "postinstall": "node ./node_modules/vscode/bin/install",
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
+    "dependencies": {
+        "@types/js-yaml": "^3.11.2",
+        "js-yaml": "^3.12.0"
+    },
     "devDependencies": {
         "typescript": "^2.6.1",
         "vscode": "^1.1.21",
@@ -37,6 +66,9 @@
         "@types/node": "^8.10.25",
         "@types/mocha": "^2.2.42"
     },
+    "extensionDependencies": [
+        "ms-kubernetes-tools.vscode-kubernetes-tools"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/itowlson/vscode-pulumi-kubernetes"
